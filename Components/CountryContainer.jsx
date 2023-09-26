@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Data from "../Data.json";
 import CountryCard from "../Components/CountryCard";
+import CountriesListShimmer from "./CountriesListShimmer";
+
 const CountryContainer = ({ query }) => {
   const [data, setData] = useState([]);
 
@@ -15,16 +18,22 @@ const CountryContainer = ({ query }) => {
   }, []);
 
   return data.length === 0 ? (
-    "Loading ....."
+    <CountriesListShimmer />
   ) : (
     <div className="countries-container">
-    {
-      data
+      {data
         .filter((country) => country.name.common.toLowerCase().includes(query))
         .map((country, index) => {
-          return <CountryCard {...country} key={index} />;
-        })
-    }
+          return (
+            <Link
+              className="country-card"
+              to={`/countryDetail/${country.name.common}`}
+              key={index}
+            >
+              <CountryCard {...country}  />;
+            </Link>
+          );
+        })}
     </div>
   );
 };
