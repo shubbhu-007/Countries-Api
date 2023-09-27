@@ -29,10 +29,11 @@ const CountryContainer = ({ query }) => {
               className="country-card"
               to={`/countryDetail/${country.name.common}`}
               key={index}
+              state = {{...country}}
             >
-              <CountryCard {...country}  />;
+              <CountryCard {...country}  />
             </Link>
-          );
+          )
         })}
     </div>
   );

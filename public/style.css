@@ -10,6 +10,7 @@ body {
     margin: 0;
     font-family: Nunito, sans-serif;
     background-color: var(--background-color);
+   
     color: var(--text-color);
     font-family: 'Nunito', sans-serif;
 }

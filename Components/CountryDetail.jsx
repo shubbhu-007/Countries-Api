@@ -3,49 +3,58 @@ import "../public/countryDetail.css"
 import { Link, useLocation, useParams } from "react-router-dom";
 const CountryDetails = () => {
   const {name} = useParams();
-  console.log(name);
+  const {state} = useLocation();
   let countryName = name;
   const [countryData, setCountryData] = useState(null);
+   function updateData(actualData){
+    setCountryData({
+      name: actualData.name.common,
+      nativeName: Object.values(actualData.name.nativeName)[0].common,
+      population: actualData.population,
+      region: actualData.region,
+      subregion: actualData.subregion,
+      capital: actualData.capital,
+      flag: actualData.flags.svg,
+      tld: actualData.tld,
+      languages: Object.values(actualData.languages).join(", "),
+      currencies: Object.values(actualData.currencies)
+        .map((currency) => currency.name)
+        .join(", "),
+        borders:[],
+    })
+
+    if(actualData.borders === undefined){
+      actualData.borders = [];
+    }
+
+    Promise.all(
+      actualData.borders.map((border) => {
+      return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
+       .then((res) => res.json())
+       .then(([data]) => data.name.common)
+     })
+    ).then((borders) => {
+      (setCountryData((prevState) => ({...prevState , borders})))
+    })
+
+  }
+
 
   async function fetchCountryDetails(){
     const data = await fetch(`https://restcountries.com/v3.1/name/${countryName}`)
     const res = await data.json();
-    const actualData = res[0];
-    console.log(actualData.borders);
-    setCountryData({
-          name: actualData.name.common,
-          nativeName: Object.values(actualData.name.nativeName)[0].common,
-          population: actualData.population,
-          region: actualData.region,
-          subregion: actualData.subregion,
-          capital: actualData.capital,
-          flag: actualData.flags.svg,
-          tld: actualData.tld,
-          languages: Object.values(actualData.languages).join(", "),
-          currencies: Object.values(actualData.currencies)
-            .map((currency) => currency.name)
-            .join(", "),
-            borders:[],
-        })
-
-        if(actualData.borders === undefined){
-          actualData.borders = [];
-        }
-
-      Promise.all(
-        actualData.borders.map((border) => {
-        return fetch(`https://restcountries.com/v3.1/alpha/${border}`)
-         .then((res) => res.json())
-         .then(([data]) => data.name.common)
-       })
-      ).then((borders) => {
-        setCountryData((prevState) => ({...prevState , borders}))
-      })
-        
-  }
+    const Data = res[0];
+    updateData(Data);
+  } 
 
   useEffect(() => {
+    if(state){
+     updateData(state);
+     return ;
+      
+    }
     fetchCountryDetails();
+
   },[countryName]);
 
   return countryData === null ? (
@@ -67,7 +76,7 @@ const CountryDetails = () => {
               </p>
               <p>
                 <b>
-                  Population: {countryData.population.toLocaleString("en-IN")}
+                  Population: {countryData?.population?.toLocaleString("en-IN")}
                 </b>
                 <span className="population"></span>
               </p>

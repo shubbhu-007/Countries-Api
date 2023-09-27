@@ -6,7 +6,7 @@ const CountriesListShimmer = () => {
 
       {
       Array.from({ length: 20 }).map((el, index) => {
-        return <div key={index} className="country-card shimmer-card"></div>;
+        return <div key={index} className="country-card shimmer-card"></div>
       })
       }
     </div>
