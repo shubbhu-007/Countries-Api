@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-const Header = () => {
-  const [isDark, setisDark] = useState(
-    JSON.parse(localStorage.getItem("isDarkMode"))
-  );
+const Header = ({theme}) => {
+  const [isDark,setisDark] = theme;
 
-  if (isDark) {
-    document.body.classList.add("dark");
-  } else {
-    document.body.classList.remove("dark");
-  }
+  //Dom Manipulating
+  // if (isDark) {
+  //   document.body.classList.add("dark");
+  // } else {
+  //   document.body.classList.remove("dark");
+  // }
+
+
 
   return (
-    <header className="header-container">
+    <header className={`header-container ${isDark? "dark" : ""}`}>
       <div className="header-content">
         <Link to="/">
           <h2 className="title">Where in the world? </h2>

@@ -6,12 +6,17 @@ import { Outlet } from "react-router-dom";
 
 
 const App = () => {
+    const [isDark, setisDark] = useState(
+        JSON.parse(localStorage.getItem("isDarkMode"))
+    );
+
     return (
         <>
-        <Header/>
-        <Outlet/>       
+            <Header theme = {[isDark,setisDark]}/>
+            {/* Outlet Using React Context Api */}
+            <Outlet context={[isDark,setisDark]}/>
         </>
-        
+
 
     )
 }
