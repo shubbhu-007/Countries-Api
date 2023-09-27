@@ -1,21 +1,17 @@
 import { useState } from "react";
-import CountryContainer from "./Components/CountryContainer";
+// import CountryContainer from "./Components/CountryContainer";
 import Header from "./Components/Header";
 import { Outlet } from "react-router-dom";
-
-
+// import { ThemeContext } from "./Components/utils/ThemeContext";
+import { ThemeSwitch } from "./Components/utils/ThemeContext";
 
 const App = () => {
-    const [isDark, setisDark] = useState(
-        JSON.parse(localStorage.getItem("isDarkMode"))
-    );
 
     return (
-        <>
-            <Header theme = {[isDark,setisDark]}/>
-            {/* Outlet Using React Context Api */}
-            <Outlet context={[isDark,setisDark]}/>
-        </>
+        <ThemeSwitch>
+            <Header/>
+            <Outlet/>
+        </ThemeSwitch>
 
 
     )

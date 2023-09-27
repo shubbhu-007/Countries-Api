@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext } from "react";
+import { ThemeContext } from "./utils/ThemeContext";
 import "../public/countryDetail.css"
 import { Link, useLocation, useOutletContext, useParams } from "react-router-dom";
 const CountryDetails = () => {
-  const [isDark] = useOutletContext();
+  // const [isDark] = useOutletContext();
+  const [isDark] = useContext(ThemeContext);
   const {name} = useParams();
   const {state} = useLocation();
   let countryName = name;

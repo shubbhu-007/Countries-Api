@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
+import { ThemeContext } from "./utils/ThemeContext";
 import { Link } from "react-router-dom";
 const Header = ({theme}) => {
-  const [isDark,setisDark] = theme;
+  // ----> Passing as props from app.js to set theme the actual state is defined in app.ja
+  // const [isDark,setisDark] = theme;
 
-  //Dom Manipulating
+  // ---> Dom Manipulating
   // if (isDark) {
   //   document.body.classList.add("dark");
   // } else {
   //   document.body.classList.remove("dark");
   // }
+
+  //---> Using Context Api
+  const [isDark,setisDark] = useContext(ThemeContext);
 
 
 
