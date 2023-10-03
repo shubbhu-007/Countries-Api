@@ -1,5 +1,55 @@
+
+main .shimmer-card {
+    --shimmer-color: hsl(0, 0%, 78%);
+}
+
+main.dark .shimmer-card {
+    --shimmer-color: hsl(208, 21%, 34%);
+}
+
+
 .shimmer-card{
     height: 350px;
-    background-color: #ccccccd1;
+    /* background-color: #eceaead1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap:2rem;
+    
 
+}
+.shine{
+    
+    animation-duration: 2.2s;
+    animation-fill-mode: forwards; 
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    background: #d7d7d7;
+    background: linear-gradient(to right, #F6F6F6 8%, #F0F0F0 18%, #F6F6F6 33%);
+    background-size: 1200px 100%;
+
+}
+@keyframes shimmer{
+    0% {
+        background-position: -1200px 0;
+    }
+    100% {
+        background-position: 1200px 0;
+    }
+}
+.shimmer-title,
+.shimmer-capital,
+.shimmer-population{
+    width:80%;
+    height: 20px;
+    /* background-color: rgb(225, 223, 223); */
+    border-radius: 7px;
+    
+}
+.shimmer-image{
+    width:90%;
+    height: 150px;
+    border-radius: 7px;
 }

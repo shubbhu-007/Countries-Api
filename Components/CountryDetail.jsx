@@ -2,6 +2,7 @@ import React, { useEffect, useState , useContext } from "react";
 import { ThemeContext } from "./utils/ThemeContext";
 import "../public/countryDetail.css"
 import { Link, useLocation, useOutletContext, useParams } from "react-router-dom";
+import CountryDetailShimmer from "./CountryDetailShimmer";
 const CountryDetails = () => {
   // const [isDark] = useOutletContext();
   const [isDark] = useContext(ThemeContext);
@@ -60,14 +61,15 @@ const CountryDetails = () => {
 
   },[countryName]);
 
-  return countryData === null ? (
-    "Loading........"
-  ) : (
+  return (
     <main className={`${isDark?"dark":""}`}>
       <div className="country-details-container">
         <span className="back-button" onClick={() => history.back()}>
           <i className="fa-solid fa-arrow-left"></i>&nbsp; Back
         </span>
+        {
+         countryData === null ? <CountryDetailShimmer/> : (
+        
         <div className="country-details">
           <img src={countryData.flag} alt={`${countryData.name} flag`} />
           <div className="details-text-container">
@@ -120,6 +122,7 @@ const CountryDetails = () => {
             )}
           </div>
         </div>
+         )}
       </div>
     </main>
   );

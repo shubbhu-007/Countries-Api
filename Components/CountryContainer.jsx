@@ -22,7 +22,7 @@ const CountryContainer = ({ query }) => {
   ) : (
     <div className="countries-container">
       {data
-        .filter((country) => country.name.common.toLowerCase().includes(query))
+        .filter((country) => country.name.common.toLowerCase().includes(query) || country.region.toLowerCase().includes(query))
         .map((country, index) => {
           return (
             <Link

@@ -1,7 +1,7 @@
-const SelectMenu = () => {
+const SelectMenu = ({setquery}) => {
     return(
-        <select className="filter-by-region">
-            <option hidden="">Filter By Region</option>
+        <select className="filter-by-region" onChange={(e) => setquery(e.target.value.toLowerCase())}>
+            <option hidden>Filter By Region</option>
             <option value="Africa">Africa</option>
             <option value="America">America</option>
             <option value="Asia">Asia</option>

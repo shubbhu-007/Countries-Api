@@ -1,0 +1,25 @@
+// In way 3 of implemting dark mode i used this approach using context Api
+// the setstate logic of dark mode is in app.JSON
+// but further we also move this logic to ThemeContext.js file
+
+//we implemented 3 way to enable dark mode
+
+const App = () => {
+    const [isDark, setisDark] = useState(
+        JSON.parse(localStorage.getItem("isDarkMode"))
+    );
+
+    return (
+        <>
+            <Header theme = {[isDark,setisDark]}/>
+            {/* Outlet Using React Context Api */}
+            <Outlet context={[isDark,setisDark]}/>
+        </>
+
+
+    )
+}
+
+
+
+export default App;
